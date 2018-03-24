@@ -1,53 +1,53 @@
 const axios = require("axios");
 
-let restaurants = [];
+let locations = [];
 let id = 0;
 
 module.exports = {
-  addRestaurant: (req, res, next) => {
+  addLocation: (req, res, next) => {
     const { name } = req.body;
     const { address, postalCode } = req.body.location;
 
-    let restaur = {
+    let location = {
       id: id,
       name: name,
       address: address,
       postalCode: postalCode
     };
-    restaurants.push(restaur);
+    locations.push(location);
     id++;
-    res.send(restaurants);
+    res.send(locations);
   },
 
-  getRestaurants: (req, res, next) => {
+  getLocations: (req, res, next) => {
     console.log("getting locations");
-    if (!restaurants.length) {
+    if (!locations.length) {
       axios
         .get(
-          `https://api.foursquare.com/v2/venues/search?near=dallas&categoryId=4bf58dd8d48988d1c4941735&client_id=${
+          `https://api.foursquare.com/v2/venues/search?near=dallas&categoryId=4bf58dd8d48988d1d3941735,4bf58dd8d48988d116941735&client_id=${
             process.env.CLIENT_ID
           }&client_secret=${process.env.CLIENT_SECRET}&v=20180323`
         )
         .then(resp => {
           console.log(resp.data.response.venues);
-          restaurants = resp.data.response.venues;
-          res.status(200).json(restaurants);
+          locations = resp.data.response.venues;
+          res.status(200).json(locations);
         })
-        .catch(() => console.log("Failed to get restaurants"));
+        .catch(() => console.log("Failed to get locations"));
     } else {
-      res.status(200).json(restaurants);
+      res.status(200).json(locations);
     }
   },
 
-  updateRestaurant: (req, res, next) => {
+  updateLocation: (req, res, next) => {
     const { name, id } = req.body;
     const { address, postalCode } = req.body.location;
-    restaurants.forEach((el, ind, arr) => {
+    locations.forEach((el, ind, arr) => {
       if (el.id === id) {
         el.name = name;
       }
     });
-    res.status(200).json(restaurants);
+    res.status(200).json(locations);
   }
   // deleteRestaurant: (req, res, next) => {
   //   const { id } = req.body;

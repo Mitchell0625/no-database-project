@@ -14,6 +14,11 @@
 .App-intro {
   font-size: large;
 }
+.bars-container {
+  border: solid black 1px;
+  width: 40vw;
+  height: 40vh;
+}
 
 @keyframes App-logo-spin {
   from {
