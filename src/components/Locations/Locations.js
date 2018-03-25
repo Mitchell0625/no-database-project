@@ -12,7 +12,9 @@ class Locations extends Component {
     };
   }
 
-  deleteLocation() {}
+  deletesLocation() {
+    axios.delete(`/api/locations/`);
+  }
 
   render() {
     return (

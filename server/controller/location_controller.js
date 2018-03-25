@@ -16,7 +16,7 @@ module.exports = {
     };
     locations.push(location);
     id++;
-    res.status(200).send(locations);
+    res.status(200).json(locations);
   },
 
   getLocations: (req, res, next) => {
@@ -48,10 +48,10 @@ module.exports = {
       }
     });
     res.status(200).json(locations);
+  },
+
+  deleteLocation: (req, res, next) => {
+    locations.splice(req.params.id, 1);
+    res.status(200).json(locations);
   }
-  // deleteRestaurant: (req, res, next) => {
-  //   const { id } = req.body;
-  //   if()
-  //   restaurants.splice(id, 1);
-  // }
 };

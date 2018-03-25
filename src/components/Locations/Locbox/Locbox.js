@@ -64,7 +64,7 @@ class Locbox extends Component {
           >
             Save to List
           </button>
-          <button>Delete Place</button>
+          <button className="delete">Delete Place</button>
         </div>
       </div>
     );
