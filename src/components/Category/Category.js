@@ -9,12 +9,15 @@ class Category extends Component {
       locations: this.props,
       category: ["Restaurant", "Bar"]
     };
+    this.filterCategory = this.filterCategory.bind(this);
   }
 
   filterCategory(val) {
-    this.props.locations.filter((e, i) => {
-      return this.state.category.includes(e.categories[0].name);
+    const { locations } = this.props;
+    let filteredLocations = locations.filter((e, i) => {
+      return e.categories[0].name.includes(val);
     });
+    this.setState({ locations: filteredLocations });
   }
 
   render() {
@@ -22,7 +25,7 @@ class Category extends Component {
       <div className="category-position">
         <select
           onChange={e => {
-            this.filterCategory;
+            this.filterCategory(e.target.value);
           }}
         >
           <option value="">All</option>
