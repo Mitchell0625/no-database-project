@@ -1,0 +1,7 @@
+.input-boxes {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+}

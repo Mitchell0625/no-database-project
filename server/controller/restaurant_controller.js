@@ -4,19 +4,19 @@ let locations = [];
 let id = 0;
 
 module.exports = {
-  addLocation: (req, res, next) => {
+  addLocation: (req, res) => {
     const { name } = req.body;
-    const { address, city, state } = req.body.location;
 
     let location = {
       id: id,
       name: name,
-      address: address,
-      city: city
+      address: req.body.location,
+      city: req.body.location,
+      state: req.body.location
     };
     locations.push(location);
     id++;
-    res.send(locations);
+    res.status(200).send(locations);
   },
 
   getLocations: (req, res, next) => {

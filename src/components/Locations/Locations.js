@@ -8,7 +8,6 @@ class Locations extends Component {
     super(props);
 
     this.state = {
-      locations: [],
       category: ["Restaurant", "Bar"]
     };
   }

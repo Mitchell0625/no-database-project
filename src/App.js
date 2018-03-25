@@ -22,6 +22,7 @@ class App extends Component {
       userInput: ""
     };
     this.changeCategory = this.changeCategory.bind(this);
+    this.addLoc = this.addLoc.bind(this);
   }
   componentDidMount() {
     axios.get("/api/locations").then(locResults => {
@@ -30,10 +31,11 @@ class App extends Component {
     });
   }
 
-  addLoc(id, name, address, city, state) {
+  addLoc(name, address, city, state) {
     axios
-      .post("./api/locations/", { id, name, address, city, state })
+      .post("/api/locations", { name, address, city, state })
       .then(results => {
+        console.log(results);
         this.setState({ locations: results.data });
       });
   }
@@ -53,11 +55,12 @@ class App extends Component {
     let locationList = locations.map((e, i) => {
       return (
         <Locbox
-          key={e.id}
+          key={i}
           name={e.name}
           address={e.location.address}
           city={e.location.city}
           state={e.location.state}
+          id={e.id}
         />
       );
     });
@@ -65,8 +68,8 @@ class App extends Component {
       <div className="App">
         <Header />
         <Category />
-        {/* <Input /> */}
-        <Locations />
+        <Input addLoc={this.addLoc} />
+
         {locationList}
       </div>
     );
