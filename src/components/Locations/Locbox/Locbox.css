@@ -1,0 +1,10 @@
+.loc-container {
+  border: solid black 1px;
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+}
+
+.loc-container:hover {
+  background-color: #c2e3f4;
+}

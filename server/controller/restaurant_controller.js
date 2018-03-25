@@ -6,13 +6,13 @@ let id = 0;
 module.exports = {
   addLocation: (req, res, next) => {
     const { name } = req.body;
-    const { address, postalCode } = req.body.location;
+    const { address, city, state } = req.body.location;
 
     let location = {
       id: id,
       name: name,
       address: address,
-      postalCode: postalCode
+      city: city
     };
     locations.push(location);
     id++;
