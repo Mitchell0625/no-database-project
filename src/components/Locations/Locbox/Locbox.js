@@ -24,7 +24,7 @@ class Locbox extends Component {
         <h2>{this.props.name}</h2>
         <p>{this.props.address}</p>
         <p>
-          {this.props.city}
+          {this.props.city},
           {this.props.state}
         </p>
         <div>

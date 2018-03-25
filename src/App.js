@@ -30,14 +30,13 @@ class App extends Component {
     });
   }
 
-  // addLoc(id, name, address, city, state) {
-  //   axios
-  //     .post("./api/locations/", { id, name, address, city, state })
-  //     .then(results => {
-  //       this.setState({ locations: results.data });
-  //     })
-  //     .catch(console.log(results));
-  // }
+  addLoc(id, name, address, city, state) {
+    axios
+      .post("./api/locations/", { id, name, address, city, state })
+      .then(results => {
+        this.setState({ locations: results.data });
+      });
+  }
 
   changeName(name, id) {
     axios.put(`/api/locations/${id}/${name}`);
@@ -66,7 +65,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Category />
-        <Input />
+        {/* <Input /> */}
         <Locations />
         {locationList}
       </div>
