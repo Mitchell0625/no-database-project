@@ -55,6 +55,7 @@ class App extends Component {
       })
       .catch(console.log);
   }
+
   changeCategory(val) {
     this.setState({ category: val });
   }
@@ -82,7 +83,7 @@ class App extends Component {
           id={loc.id}
           handleAdd={this.handleAdd}
           deleteLoc={this.deleteLoc}
-          category={loc.categories.name}
+          // category={loc.categories.name}
         />
       );
     });

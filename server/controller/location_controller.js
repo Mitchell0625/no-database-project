@@ -5,16 +5,19 @@ let id = 0;
 
 module.exports = {
   addLocation: (req, res) => {
-    const { name } = req.body;
+    console.log(req.body);
+    const { name, address, city, state } = req.body;
 
-    let location = {
+    let loc = {
       id: id,
       name: name,
-      address: req.body.location,
-      city: req.body.location,
-      state: req.body.location
+      location: {
+        address: address,
+        city: city,
+        state: state
+      }
     };
-    locations.push(location);
+    locations.push(loc);
     id++;
     res.status(200).json(locations);
   },
@@ -51,6 +54,7 @@ module.exports = {
   },
 
   deleteLocation: (req, res, next) => {
+    console.log(req.params);
     const { id } = req.params;
     let index = locations.findIndex(e => e.id === id);
     locations.splice(index, 1);

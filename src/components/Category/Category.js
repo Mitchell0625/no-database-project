@@ -6,7 +6,6 @@ class Category extends Component {
     super(props);
 
     this.state = {
-      locations: this.props,
       category: ["Restaurant", "Bar"]
     };
     this.filterCategory = this.filterCategory.bind(this);

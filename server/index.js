@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.get("/api/locations", loc.getLocations);
 app.post("/api/locations", loc.addLocation);
 app.put("/api/locations", loc.updateLocation);
-app.delete("/api/locations", loc.deleteLocation);
+app.delete("/api/locations/:id", loc.deleteLocation);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

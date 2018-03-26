@@ -2,6 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   width: 100vw;
-  height: 20vh;
-  border: ;
+  padding: 20px;
+  /* height: 20vh; */
 }

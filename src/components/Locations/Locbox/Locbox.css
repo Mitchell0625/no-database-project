@@ -1,18 +1,25 @@
 .loc-container {
   border: solid #030305 1px;
+  border-radius: 30px;
   width: 240px;
-  height: 125px;
+  height: 130px;
   padding-top: 5px;
   font-family: "Cabin", sans-serif;
+  padding-top: 10px;
+  line-height: 1.2em;
 }
 
 .loc-container:hover {
   background-color: #c2e3f4;
 }
 button {
-  position: relative;
-  bottom: -30px;
+  /* position: relative;
+  bottom: -20px; */
   font-family: "Cabin", sans-serif;
+}
+
+.box-button {
+  margin-top: 20px;
 }
 
 .delete {

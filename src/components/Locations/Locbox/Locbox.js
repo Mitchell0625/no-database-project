@@ -12,46 +12,59 @@ class Locbox extends Component {
     };
     // this.editName = this.editName.bind(this);
     this.handleAddToPlaces = this.handleAddToPlaces.bind(this);
-    // this.deleteLoc = this.deleteLoc.bind(this);
   }
 
   handleAddToPlaces(id) {
     const { tryPlace } = this.state;
     const { locations, handleAdd } = this.props;
     let index = locations.findIndex(e => e.id === id);
-    let newArr = locations.map((e, i) => {});
-
     let spliced = locations.splice(index, 1);
-
-    // handleAdd(locations, spliced);
+    handleAdd(locations, spliced);
     console.log(spliced);
   }
 
-  handleDelete(id) {
-    const { locations, handleDelete } = this.props;
+  editName() {
+    this.setState({ flag: true });
+  }
+  editing(val) {
+    this.setState((this.props.name: val));
   }
 
-  // editName() {
-  //   this.setState({ flag: true });
-  // }
-  // editing(val) {
-  //   this.setState();
-  // }
-
   render() {
-    // if (this.state.flag) {
-    //   return <input placeholder="Edit Name" />;
-    // }
+    if (this.state.flag) {
+      return (
+        <div className="loc-container">
+          <input placeholder="Edit Name" />
+          <p>{this.props.address}</p>
+          <p>
+            {this.props.city}, {this.props.state}
+          </p>
+        </div>
+      );
+    }
 
     const { placesToTry } = this.state;
     const { id } = this.props;
 
+    // placesToTry = () => {
+    //   return (
+    //     <div className="places">
+    //       <h2>{this.props.name}</h2>
+    //       <p>{this.props.address}</p>
+    //       <p>
+    //         {this.props.city},
+    //         {this.props.state}
+    //       </p>
+    //     </div>
+    //   );
+    // };
+
     return (
       <div className="loc-container">
         <h2
-        // onClick={e => {
-        //   this.editName();
-        // }}
+          onClick={e => {
+            this.editName();
+          }}
         >
           {this.props.name}
         </h2>
@@ -62,6 +75,7 @@ class Locbox extends Component {
         </p>
         <div>
           <button
+            className="box-button"
             onClick={() => {
               this.handleAddToPlaces(id);
             }}
@@ -69,7 +83,7 @@ class Locbox extends Component {
             Save to List
           </button>
           <button
-            className="delete"
+            className="delete box-button"
             onClick={() => this.props.deleteLoc(this.props.id)}
           >
             Delete Place

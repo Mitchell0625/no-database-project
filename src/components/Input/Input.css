@@ -1,7 +1,6 @@
 .input-boxes {
   display: flex;
-  flex-direction: column;
-}
-
-button {
+  /* flex-direction: column; */
+  width: 60%;
+  margin: auto;
 }

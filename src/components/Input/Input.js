@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Input.css";
 
 class Input extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class Input extends Component {
   render() {
     let { addLoc } = this.props;
     let { name, address, city, state } = this.state;
+
     return (
       <div className="input-boxes">
         <input
