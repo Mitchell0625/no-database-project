@@ -52,12 +52,8 @@ module.exports = {
 
   deleteLocation: (req, res, next) => {
     const { id } = req.params;
-    let index = locations.map((location, i) => {
-      if (location.id === id) {
-        locations.splice(i, 1);
-      }
-    });
-
+    let index = locations.findIndex(e => e.id === id);
+    locations.splice(index, 1);
     res.status(200).json(locations);
   }
 };

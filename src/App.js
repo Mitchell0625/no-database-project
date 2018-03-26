@@ -18,12 +18,12 @@ class App extends Component {
     this.state = {
       locations: [],
       tryPlace: [],
-      userInput: "",
-      category: ["Bar", "Restaurant"]
+      userInput: ""
     };
     this.changeCategory = this.changeCategory.bind(this);
     this.addLoc = this.addLoc.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.deleteLoc = this.deleteLoc.bind(this);
   }
   componentDidMount() {
     axios.get("/api/locations").then(locResults => {
@@ -42,10 +42,19 @@ class App extends Component {
   }
 
   changeName(name, id) {
-    axios.put(`/api/locations/${id}/${name}`).then;
+    axios.put(`/api/locations/${id}/${name}`).then(results => {
+      this.setState({ locations: results.data });
+    });
   }
 
-  deleteLoc() {}
+  deleteLoc(id) {
+    axios
+      .delete(`/api/locations/${id}`)
+      .then(res => {
+        this.setState({ locations: res.data });
+      })
+      .catch(console.log);
+  }
   changeCategory(val) {
     this.setState({ category: val });
   }
@@ -72,6 +81,8 @@ class App extends Component {
           locations={locations}
           id={loc.id}
           handleAdd={this.handleAdd}
+          deleteLoc={this.deleteLoc}
+          category={loc.categories.name}
         />
       );
     });

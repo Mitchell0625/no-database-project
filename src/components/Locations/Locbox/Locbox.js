@@ -7,31 +7,30 @@ class Locbox extends Component {
     super(props);
 
     this.state = {
-      placesToTry: [],
+      tryPlace: [],
       flag: false
     };
     // this.editName = this.editName.bind(this);
     this.handleAddToPlaces = this.handleAddToPlaces.bind(this);
-    this.deleteLoc = this.deleteLoc.bind(this);
+    // this.deleteLoc = this.deleteLoc.bind(this);
   }
 
   handleAddToPlaces(id) {
-    const { placesToTry } = this.state;
+    const { tryPlace } = this.state;
     const { locations, handleAdd } = this.props;
     let index = locations.findIndex(e => e.id === id);
+    let newArr = locations.map((e, i) => {});
+
     let spliced = locations.splice(index, 1);
-    handleAdd(locations, spliced);
+
+    // handleAdd(locations, spliced);
     console.log(spliced);
   }
 
-  deleteLoc(id) {
-    axios
-      .delete(`/api/locations/${id}`)
-      .then(res => {
-        this.setState({ locations: res.data });
-      })
-      .catch(console.log);
+  handleDelete(id) {
+    const { locations, handleDelete } = this.props;
   }
+
   // editName() {
   //   this.setState({ flag: true });
   // }
@@ -69,7 +68,10 @@ class Locbox extends Component {
           >
             Save to List
           </button>
-          <button className="delete" onClick={() => this.deleteLoc()}>
+          <button
+            className="delete"
+            onClick={() => this.props.deleteLoc(this.props.id)}
+          >
             Delete Place
           </button>
         </div>

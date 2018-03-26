@@ -1,9 +1,9 @@
 .loc-container {
-  border: solid black 1px;
-  width: 250px;
+  border: solid #030305 1px;
+  width: 240px;
   height: 125px;
   padding-top: 5px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Cabin", sans-serif;
 }
 
 .loc-container:hover {
@@ -12,6 +12,7 @@
 button {
   position: relative;
   bottom: -30px;
+  font-family: "Cabin", sans-serif;
 }
 
 .delete {
