@@ -6,17 +6,8 @@ class Category extends Component {
     super(props);
 
     this.state = {
-      category: ["Restaurant", "Bar"]
+      category: ""
     };
-    this.filterCategory = this.filterCategory.bind(this);
-  }
-
-  filterCategory() {
-    const { locations, category } = this.props;
-    let filteredLocations = locations.filter(e => {
-      return e.category.includes("Bar");
-    });
-    this.setState({ locations: filteredLocations });
   }
 
   render() {
@@ -24,7 +15,7 @@ class Category extends Component {
       <div className="category-position">
         <select
           onChange={e => {
-            this.filterCategory();
+            this.props.changeCat(e.target.value);
           }}
         >
           <option value="">All</option>

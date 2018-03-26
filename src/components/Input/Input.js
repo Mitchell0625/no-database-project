@@ -9,12 +9,14 @@ class Input extends Component {
       name: "",
       address: "",
       city: "",
-      state: ""
+      state: "",
+      category: ""
     };
     this.handleName = this.handleName.bind(this);
     this.handleAddress = this.handleAddress.bind(this);
     this.handleCity = this.handleCity.bind(this);
     this.handleState = this.handleState.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
   }
   handleName(val) {
     this.setState({ name: val });
@@ -29,9 +31,13 @@ class Input extends Component {
     this.setState({ state: val });
   }
 
+  handleCategory(val) {
+    this.setState({ category: val });
+  }
+
   render() {
     let { addLoc } = this.props;
-    let { name, address, city, state } = this.state;
+    let { name, address, city, state, category } = this.state;
 
     return (
       <div className="input-boxes">
@@ -51,7 +57,11 @@ class Input extends Component {
           placeholder="state"
           onChange={e => this.handleState(e.target.value)}
         />
-        <button onClick={() => addLoc(name, address, city, state)}>
+        <input
+          placeholder="category"
+          onChange={e => this.handleCategory(e.target.value)}
+        />
+        <button onClick={() => addLoc(name, address, city, state, category)}>
           Add Location
         </button>
       </div>

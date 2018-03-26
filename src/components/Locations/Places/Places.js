@@ -7,7 +7,7 @@ const Places = props => {
       <p>{props.nam}</p>
       <p>{props.addy}</p>
       <p>
-        {props.cit}, {props.st}
+        {props.cit} {props.st}
       </p>
     </div>
   );

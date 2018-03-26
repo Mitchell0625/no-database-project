@@ -19,10 +19,10 @@ class App extends Component {
     this.state = {
       locations: [],
       tryPlace: [],
+      category: "",
       userInput: ""
     };
     this.changeCategory = this.changeCategory.bind(this);
-
     this.addLoc = this.addLoc.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.deleteLoc = this.deleteLoc.bind(this);
@@ -34,9 +34,9 @@ class App extends Component {
     });
   }
 
-  addLoc(name, address, city, state) {
+  addLoc(name, address, city, state, category) {
     axios
-      .post("/api/locations", { name, address, city, state })
+      .post("/api/locations", { name, address, city, state, category })
       .then(results => {
         console.log(results);
         this.setState({ locations: results.data });
@@ -45,7 +45,6 @@ class App extends Component {
 
   changeName(name, id) {
     axios.put(`/api/locations/${id}/${name}`).then(results => {
-      console.log(results.data);
       this.setState({ locations: results.data });
     });
   }
@@ -65,37 +64,40 @@ class App extends Component {
 
   handleAdd(id) {
     axios.post(`/api/saved/${id}`).then(res => {
+      console.log("RES DATA", res.data[0], res.data[1]);
       this.setState({
         locations: res.data[0],
-        tryPlace: res.data[0]
+        tryPlace: res.data[1]
       });
-      console.log(res.data);
     });
   }
 
   render() {
     const { locations, category } = this.state;
 
-    let locationList = locations.map((loc, i) => {
-      return (
-        <Locbox
-          key={i}
-          name={loc.name}
-          address={loc.location.address}
-          city={loc.location.city}
-          state={loc.location.state}
-          locations={locations}
-          id={loc.id}
-          handleAdd={this.handleAdd}
-          deleteLoc={this.deleteLoc}
-          changeName={this.changeName}
-          // category={loc.categories.name}
-        />
-      );
-    });
+    let locationList = locations
+      .filter(loc => loc.categories[0].name.includes(category))
+      .map((loc, i) => {
+        console.log(loc);
+        return (
+          <Locbox
+            key={i}
+            name={loc.name}
+            address={loc.location.address}
+            city={loc.location.city}
+            state={loc.location.state}
+            locations={locations}
+            id={loc.id}
+            handleAdd={this.handleAdd}
+            deleteLoc={this.deleteLoc}
+            changeName={this.changeName}
+          />
+        );
+      });
 
     const { tryPlace } = this.state;
     let savedList = tryPlace.map((place, i) => {
+      console.log(place);
       return (
         <Places
           key={i}
@@ -112,11 +114,12 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Category />
+        <Category changeCat={this.changeCategory} />
         <Input addLoc={this.addLoc} />
-        <Places />
+        {/* <Places /> */}
+        <h1 className="ok">Places to Try</h1>
+        <div className="saved-container">{savedList}</div>
         <div className="container">{locationList}</div>
-        {savedList}
       </div>
     );
   }

@@ -1,0 +1,11 @@
+.placeList {
+  border: solid #030305 1px;
+  border-radius: 30px;
+  width: 240px;
+  height: 130px;
+  padding-top: 5px;
+  font-family: "Cabin", sans-serif;
+  padding-top: 10px;
+  line-height: 1.2em;
+  margin-bottom: 20px;
+}
