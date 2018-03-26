@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./Locbox.css";
 
 class Locbox extends Component {
@@ -11,26 +12,26 @@ class Locbox extends Component {
     };
     // this.editName = this.editName.bind(this);
     this.handleAddToPlaces = this.handleAddToPlaces.bind(this);
+    this.deleteLoc = this.deleteLoc.bind(this);
   }
 
-  handleAddToPlaces(val) {
+  handleAddToPlaces(id) {
     const { placesToTry } = this.state;
-    this.props.locations.map((e, i) => {
-      if (this.props.locations[e].id === val) {
-        placesToTry.push(this.props.locations[e]);
-        this.props.locations.splice(i, 1);
-      }
-    });
+    const { locations, handleAdd } = this.props;
+    let index = locations.findIndex(e => e.id === id);
+    let spliced = locations.splice(index, 1);
+    handleAdd(locations, spliced);
+    console.log(spliced);
   }
 
-  //   this.setState({ placesToTry: placesToTry });
-  //   console.log({ placesToTry });
-  //   addToPlaces(val) {
-  //     this.setState({ placesToTry: val });
-  //   }
-  // }
-  deleteLoc(id) {}
-
+  deleteLoc(id) {
+    axios
+      .delete(`/api/locations/${id}`)
+      .then(res => {
+        this.setState({ locations: res.data });
+      })
+      .catch(console.log);
+  }
   // editName() {
   //   this.setState({ flag: true });
   // }
@@ -42,6 +43,10 @@ class Locbox extends Component {
     // if (this.state.flag) {
     //   return <input placeholder="Edit Name" />;
     // }
+
+    const { placesToTry } = this.state;
+    const { id } = this.props;
+
     return (
       <div className="loc-container">
         <h2
@@ -58,13 +63,15 @@ class Locbox extends Component {
         </p>
         <div>
           <button
-            onClick={e => {
-              this.handleAddToPlaces;
+            onClick={() => {
+              this.handleAddToPlaces(id);
             }}
           >
             Save to List
           </button>
-          <button className="delete">Delete Place</button>
+          <button className="delete" onClick={() => this.deleteLoc()}>
+            Delete Place
+          </button>
         </div>
       </div>
     );

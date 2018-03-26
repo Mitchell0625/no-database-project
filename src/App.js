@@ -23,10 +23,10 @@ class App extends Component {
     };
     this.changeCategory = this.changeCategory.bind(this);
     this.addLoc = this.addLoc.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
   componentDidMount() {
     axios.get("/api/locations").then(locResults => {
-      console.log(locResults);
       this.setState({ locations: locResults.data });
     });
   }
@@ -50,6 +50,14 @@ class App extends Component {
     this.setState({ category: val });
   }
 
+  handleAdd(locations, spliced) {
+    // console.log(locations, spliced);
+    this.setState({
+      locations: locations,
+      tryPlace: spliced
+    });
+  }
+
   render() {
     const { locations, category } = this.state;
 
@@ -61,10 +69,13 @@ class App extends Component {
           address={loc.location.address}
           city={loc.location.city}
           state={loc.location.state}
+          locations={locations}
           id={loc.id}
+          handleAdd={this.handleAdd}
         />
       );
     });
+
     return (
       <div className="App">
         <Header />

@@ -41,7 +41,7 @@ module.exports = {
 
   updateLocation: (req, res, next) => {
     const { name, id } = req.body;
-    const { address, postalCode } = req.body.location;
+
     locations.forEach((el, ind, arr) => {
       if (el.id === id) {
         el.name = name;
@@ -51,7 +51,13 @@ module.exports = {
   },
 
   deleteLocation: (req, res, next) => {
-    locations.splice(req.params.id, 1);
+    const { id } = req.params;
+    let index = locations.map((location, i) => {
+      if (location.id === id) {
+        locations.splice(i, 1);
+      }
+    });
+
     res.status(200).json(locations);
   }
 };
