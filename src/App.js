@@ -10,6 +10,7 @@ import Input from "./components/Input/Input";
 import Locations from "./components/Locations/Locations";
 import Category from "./components/Category/Category";
 import Locbox from "./components/Locations/Locbox/Locbox";
+import Places from "./components/Locations/Places/Places";
 
 class App extends Component {
   constructor(props) {
@@ -21,9 +22,11 @@ class App extends Component {
       userInput: ""
     };
     this.changeCategory = this.changeCategory.bind(this);
+
     this.addLoc = this.addLoc.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.deleteLoc = this.deleteLoc.bind(this);
+    this.changeName = this.changeName.bind(this);
   }
   componentDidMount() {
     axios.get("/api/locations").then(locResults => {
@@ -31,7 +34,6 @@ class App extends Component {
     });
   }
 
-  // Doesn't work
   addLoc(name, address, city, state) {
     axios
       .post("/api/locations", { name, address, city, state })
@@ -43,6 +45,7 @@ class App extends Component {
 
   changeName(name, id) {
     axios.put(`/api/locations/${id}/${name}`).then(results => {
+      console.log(results.data);
       this.setState({ locations: results.data });
     });
   }
@@ -60,11 +63,13 @@ class App extends Component {
     this.setState({ category: val });
   }
 
-  handleAdd(locations, spliced) {
-    // console.log(locations, spliced);
-    this.setState({
-      locations: locations,
-      tryPlace: spliced
+  handleAdd(id) {
+    axios.post(`/api/saved/${id}`).then(res => {
+      this.setState({
+        locations: res.data[0],
+        tryPlace: res.data[0]
+      });
+      console.log(res.data);
     });
   }
 
@@ -83,7 +88,23 @@ class App extends Component {
           id={loc.id}
           handleAdd={this.handleAdd}
           deleteLoc={this.deleteLoc}
+          changeName={this.changeName}
           // category={loc.categories.name}
+        />
+      );
+    });
+
+    const { tryPlace } = this.state;
+    let savedList = tryPlace.map((place, i) => {
+      return (
+        <Places
+          key={i}
+          nam={place.name}
+          addy={place.location.address}
+          cit={place.location.city}
+          st={place.location.state}
+          addSaved={this.handleAdd}
+          tryPlace={tryPlace}
         />
       );
     });
@@ -93,8 +114,9 @@ class App extends Component {
         <Header />
         <Category />
         <Input addLoc={this.addLoc} />
-
+        <Places />
         <div className="container">{locationList}</div>
+        {savedList}
       </div>
     );
   }

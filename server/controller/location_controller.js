@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 let locations = [];
+let tryPlace = [];
 let id = 0;
 
 module.exports = {
@@ -43,7 +44,7 @@ module.exports = {
   },
 
   updateLocation: (req, res, next) => {
-    const { name, id } = req.body;
+    const { name, id } = req.params;
 
     locations.forEach((el, ind, arr) => {
       if (el.id === id) {
@@ -59,5 +60,12 @@ module.exports = {
     let index = locations.findIndex(e => e.id === id);
     locations.splice(index, 1);
     res.status(200).json(locations);
+  },
+
+  addToPlaces: (req, res, next) => {
+    let location = locations.findIndex(e => e.id === id);
+    let newLoc = locations.splice(location, 1);
+    tryPlace.push(newLoc);
+    res.status(200).json([locations, tryPlace]);
   }
 };

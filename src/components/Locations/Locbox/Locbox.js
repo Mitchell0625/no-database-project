@@ -7,34 +7,46 @@ class Locbox extends Component {
     super(props);
 
     this.state = {
-      tryPlace: [],
-      flag: false
+      flag: false,
+      userInput: ""
     };
-    // this.editName = this.editName.bind(this);
+
     this.handleAddToPlaces = this.handleAddToPlaces.bind(this);
+    this.editing = this.editing.bind(this);
+    this.confirm = this.confirm.bind(this);
   }
 
   handleAddToPlaces(id) {
-    const { tryPlace } = this.state;
-    const { locations, handleAdd } = this.props;
-    let index = locations.findIndex(e => e.id === id);
-    let spliced = locations.splice(index, 1);
-    handleAdd(locations, spliced);
-    console.log(spliced);
+    const { handleAdd } = this.props;
+
+    handleAdd(id);
   }
 
   editName() {
     this.setState({ flag: true });
   }
   editing(val) {
-    this.setState((this.props.name: val));
+    this.setState({ userInput: val });
+  }
+
+  confirm(event) {
+    if (event.keyCode === 13) {
+      this.props.changeName(this.state.userInput, this.props.id);
+      this.setState({ flag: false });
+    }
   }
 
   render() {
     if (this.state.flag) {
       return (
         <div className="loc-container">
-          <input placeholder="Edit Name" />
+          <input
+            placeholder="Edit Name"
+            onChange={e => {
+              this.editing(e.target.value);
+            }}
+            onKeyDown={this.confirm}
+          />
           <p>{this.props.address}</p>
           <p>
             {this.props.city}, {this.props.state}
